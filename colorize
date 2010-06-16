@@ -1,0 +1,26 @@
+#!/usr/bin/env groovy
+
+red='\033[31m'
+blue="\033[34m"
+cyan="\033[36m"
+bold='\033[1m'
+reset="\033[m"
+
+System.in.eachLine { line ->
+	if (line.endsWith("PASSED")) {
+		line = line.replaceAll("PASSED", "${bold}${cyan}PASSED${reset}")
+	}
+	if (line.endsWith("FAILED")) {
+		line = line.replaceAll("FAILED", "${bold}${red}FAILED${reset}")
+	}
+	if (line.startsWith("Tests passed: ")) {
+		line = line.replaceAll("Tests passed: ", "${bold}Tests passed: ${cyan}") + reset
+	}
+	if (line.startsWith("Tests failed: ")) {
+		line = line.replaceAll("Tests failed: ", "${bold}Tests failed: ${red}") + reset
+	}
+	if (line.matches(" +\\[groovyc\\].*@ line \\d+, column \\d+.")) {
+		line = red + line + reset
+	}
+	println line
+}
