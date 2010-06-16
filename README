@@ -1,1 +1,1 @@
-A quick and dirty script to colorize grails output.
+A quick and dirty script to colorize grails output.  Example: grails test-app | colorize
